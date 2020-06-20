@@ -1,0 +1,8 @@
+Database menggunakan Mysql
+*requirement*
+-xmapp
+
+cara install
+1. buka phpmyadmin
+2. buat database baru dengan nama food_order
+3. import file sql food_order ke dalam databse 
