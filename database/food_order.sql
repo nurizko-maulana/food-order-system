@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 27, 2020 at 08:09 AM
+-- Generation Time: Jun 27, 2020 at 08:30 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.6
 
@@ -128,6 +128,19 @@ CREATE TABLE `payment` (
   `total_amount` decimal(13,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sellreport`
+--
+
+CREATE TABLE `sellreport` (
+  `report_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `cust_id` int(11) NOT NULL,
+  `payment_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Indexes for dumped tables
 --
@@ -179,6 +192,15 @@ ALTER TABLE `payment`
   ADD KEY `cust_id` (`cust_id`);
 
 --
+-- Indexes for table `sellreport`
+--
+ALTER TABLE `sellreport`
+  ADD PRIMARY KEY (`report_id`),
+  ADD KEY `cust_id` (`cust_id`),
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `payment_id` (`payment_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -219,6 +241,12 @@ ALTER TABLE `payment`
   MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `sellreport`
+--
+ALTER TABLE `sellreport`
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -240,6 +268,14 @@ ALTER TABLE `orders`
 ALTER TABLE `payment`
   ADD CONSTRAINT `order_id_fk` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
   ADD CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`cust_id`) REFERENCES `customer` (`cust_id`);
+
+--
+-- Constraints for table `sellreport`
+--
+ALTER TABLE `sellreport`
+  ADD CONSTRAINT `sellreport_ibfk_1` FOREIGN KEY (`cust_id`) REFERENCES `customer` (`cust_id`),
+  ADD CONSTRAINT `sellreport_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
+  ADD CONSTRAINT `sellreport_ibfk_3` FOREIGN KEY (`payment_id`) REFERENCES `payment` (`payment_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
